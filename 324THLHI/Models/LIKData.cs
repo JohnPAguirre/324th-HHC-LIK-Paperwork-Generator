@@ -7,6 +7,10 @@ namespace _324THLHI.Models
 {
     public class LIKData
     {
+        public LIKData()
+        {
+            LodgingDates = new List<string>();
+        }
         public List<string> LodgingDates { get; set; }
         public string Unit { get; set; }
         public string Name { get; set; }
