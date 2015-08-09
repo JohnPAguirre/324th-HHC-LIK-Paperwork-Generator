@@ -22,6 +22,6 @@ function GenerateLIKPDF($scope, $http) {
     }
 
     $scope.GeneratePDF = function () {
-        $scope.LodgingDate.push("");
+        var i = 9;
     }
 }
