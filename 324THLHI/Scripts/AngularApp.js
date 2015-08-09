@@ -22,6 +22,6 @@ function GenerateLIKPDF($scope, $http) {
     }
 
     $scope.GeneratePDF = function () {
-        var i = 9;
+        $http.get()
     }
 }
