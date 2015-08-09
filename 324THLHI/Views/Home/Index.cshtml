@@ -3,17 +3,19 @@
     <p class="lead">This site will generate LIK paperwork for the 324th HHC</p>
     <p>I do not store any of your information that you post here.  If you are experiencing issues or have a comment you can find me in the global under Aguirre, John P SPC</p>
 </div>
-<div class="row" ng-app>
+<div class="row" ng-app="LIKApp" ng-controller="GenerateLIKPDF">
     <div class="col-md-3">
-        <div class="form-group">
-            <label for="LodgingData">
+        <div class="form-group" ng-repeat="lodging in LodgingDate track by $index">
+            <label for="{{'Lodging' + $index}}">
                 Lodging Date
             </label>
             <input type="text"
                    class="form-control"
-                   id="LodgingData"
+                   id="{{'Lodging' + $index}}"
                    placeholder="1Dec2014 - 4Dec2014" />
         </div>
+    </div>
+    <div class="col-md-3">
         <div class="form-group">
             <label for="Name">
                 Name
@@ -122,5 +124,19 @@
                    id="Email"
                    placeholder="test.smith444@mail.mil" />
         </div>
+    </div>
+    <div class="col-md-3">
+        <button type="button" 
+                style="margin-bottom:20px;"
+                class="btn btn-primary btn-lg" 
+                ng-click="AddLodgingDate();">
+            Add Lodging Date
+        </button>
+        <button type="button"
+                style="margin-bottom:20px;"
+                class="btn btn-primary btn-lg"
+                ng-click="GeneratePDF();">
+            Create PDF
+        </button>
     </div>
 </div>
