@@ -1,4 +1,5 @@
 ﻿using _324THLHI.Models;
+using _324THLHI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,14 +16,32 @@ namespace _324THLHI.Controllers
     {
         [HttpGet]
         [ActionName("GetPDF")]
+        [Route("CreatePDF")]
         public HttpResponseMessage GetPDF([FromUri]LIKData uploadedLIKData)
         {
             MassageLIKData(uploadedLIKData);
 
-            var path = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            path = path + ".\\324LIKRequest.pdf";
+            
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(path, FileMode.Open);
+            MemoryStream stream = new MemoryStream();
+            Generate324thLIK PDFCreator = new Generate324thLIK();
+
+            PDFCreator.Address = uploadedLIKData.Address;
+            PDFCreator.CityStateZip = uploadedLIKData.CSZ;
+            PDFCreator.Email = uploadedLIKData.Email;
+            PDFCreator.Initials = uploadedLIKData.Initials;
+            PDFCreator.LodgingDates = uploadedLIKData.LodgingDates;
+            PDFCreator.Mileage = uploadedLIKData.Mileage;
+            PDFCreator.Name = uploadedLIKData.Name;
+            PDFCreator.Phone = uploadedLIKData.Phone;
+            PDFCreator.PhoneAreaCode = uploadedLIKData.PhoneAreaCode;
+            PDFCreator.Rank = uploadedLIKData.Rank;
+            PDFCreator.Unit = uploadedLIKData.Unit;
+            PDFCreator.WorkPhone = uploadedLIKData.WorkPhone;
+            PDFCreator.WorkPhoneAreaCode = uploadedLIKData.WorkPhoneAreaCode;
+
+            PDFCreator.FillPDF(stream);
+            stream.Position = 0;
             result.Content = new StreamContent(stream);
             result.Content.Headers.ContentType =
                 new MediaTypeHeaderValue("application/pdf");

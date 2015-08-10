@@ -3,37 +3,38 @@
 
 function GenerateLIKPDF($scope, $location, $window) {
     $scope.LodgingDate = [];
-    $scope.LodgingDate[0] = ""; 
-    $scope.Unit = "";
-    $scope.Name = "";
-    $scope.Rank = "";
-    $scope.Address = "";
-    $scope.CSZ = "";
-    $scope.PhoneAreaCode = "";
-    $scope.Phone = "";
-    $scope.WorkPhoneAreaCode = "";
-    $scope.WorkPhone = "";
-    $scope.Initials = "";
-    $scope.Mileage = "";
-    $scope.Email = "";
+    $scope.LodgingDate[0] = { value: '' };
+    $scope.Unit = '';
+    $scope.Name = '';
+    $scope.Rank = '';
+    $scope.Address = '';
+    $scope.CSZ = '';
+    $scope.PhoneAreaCode = '';
+    $scope.Phone = '';
+    $scope.WorkPhoneAreaCode = '';
+    $scope.WorkPhone = '';
+    $scope.Initials = '';
+    $scope.Mileage = '';
+    $scope.Email = '';
 
     $scope.AddLodgingDate = function () {
-        $scope.LodgingDate.push("");
+        $scope.LodgingDate[$scope.LodgingDate.length] = {value: ''};
     }
 
     $scope.GeneratePDF = function () {
         
         var UploadObject = CreateUploadObject();
         var url = $location.protocol() + '://' + $location.host() + ':' + $location.port()
-        
-        url = url + '/api/PDFCreator/getPDF';
+
+        //url = url + '/api/PDFCreator/getPDF';
+        url = url + '/CreatePDF';
         url = url + '?Address=' + UploadObject.Address +
             '&CSZ=' + UploadObject.CSZ +
             '&Email=' + UploadObject.Email +
             '&Initials=' + UploadObject.Initials;
             for (var i = 0; i < UploadObject.LodgingDates.length; i++)
             {
-                url = url +'&LodgingDates[' + i + ']=' +UploadObject.LodgingDates[i];
+                url = url + '&LodgingDates[' + i + ']=' + UploadObject.LodgingDates[i];
             }
             url = url + 
             '&Mileage=' + UploadObject.Mileage +
@@ -49,7 +50,10 @@ function GenerateLIKPDF($scope, $location, $window) {
 
     function CreateUploadObject() {
         var uploadObject = {};
-        uploadObject.LodgingDates = $scope.LodgingDate;
+        uploadObject.LodgingDates = [];
+        for (var i = 0; i < $scope.LodgingDate.length; i++) {
+            uploadObject.LodgingDates.push($scope.LodgingDate[i].value);
+        }
         uploadObject.Unit = $scope.Unit;
         uploadObject.Name = $scope.Name;
         uploadObject.Rank = $scope.Rank;
