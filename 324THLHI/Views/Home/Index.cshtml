@@ -5,15 +5,17 @@
 </div>
 <div class="row" ng-app="LIKApp" ng-controller="GenerateLIKPDF">
     <div class="col-md-3">
-        <div class="form-group" ng-repeat="lodging in LodgingDate track by $index">
-            <label for="{{'Lodging' + $index}}">
-                Lodging Date
-            </label>
-            <input type="text"
-                   class="form-control"
-                   id="{{'Lodging' + $index}}"
-                   placeholder="1Dec2014 - 4Dec2014"
-                   ng-model="lodging" />
+        <div ng-repeat="lodging in LodgingDate track by $index">
+            <div class="form-group">
+                <label for="{{'Lodging' + $index}}">
+                    Lodging Date
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="{{'Lodging' + $index}}"
+                       placeholder="5Dec2015-9Dec2015"
+                       ng-model="lodging.value" />
+            </div>
         </div>
     </div>
     <div class="col-md-3">
